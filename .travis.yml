@@ -5,14 +5,9 @@ go:
 - 1.11.x
 - 1.12.x
 
-go_import_path: 
-  - github.com/kennykarnama/theysaidsogo
-  - github.com/kennykarnama/theysaidsogo/client
-  - github.com/kennykarnama/theysaidsogo/config
-  - github.com/kennykarnama/theysaidsogo/model
-
 before_install:
   - go get -v golang.org/x/lint/golint
   - go get -v github.com/stretchr/testify
+  - go get -v github.com/kennykarnama/theysaidsogo
 
 script: go test -v ./...
