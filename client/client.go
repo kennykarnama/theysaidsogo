@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/kennykarnama/theysaidsogo/theysaidsogo/config"
-	"github.com/kennykarnama/theysaidsogo/theysaidsogo/model"
+	"github.com/kennykarnama/theysaidsogo/config"
+	"github.com/kennykarnama/theysaidsogo/model"
 )
 
 type Client struct {
