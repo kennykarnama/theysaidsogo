@@ -35,6 +35,11 @@ const (
 			"copyright": "2017-19 theysaidso.com"
 		}
 	}`
+	notFoundResponse = `{
+		"failure": 1,
+		"total": 0,
+		"reason": "QOD Category not supported"
+	}`
 )
 
 func TestGetQuoteOfTheDay(t *testing.T) {
@@ -51,6 +56,20 @@ func TestGetQuoteOfTheDay(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 1, quotes.Status.Total)
 
+}
+
+func TestGetQuoteOfTheDayWhenCategoryNotExist(t *testing.T) {
+	h := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(notFoundResponse))
+	})
+	httpClient, teardown := testingHttpClient(h)
+	defer teardown()
+
+	cli := NewClient()
+	cli.HttpClient = httpClient
+
+	_, err := cli.GetQuotesByCategory("test")
+	assert.NotNil(t, err)
 }
 
 func testingHttpClient(handler http.Handler) (*http.Client, func()) {
