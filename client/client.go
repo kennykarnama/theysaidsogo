@@ -1,21 +1,36 @@
-package theysaidsogo
+package client
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/kennykarnama/theysaidsogo/theysaidsogo/config"
 	"github.com/kennykarnama/theysaidsogo/theysaidsogo/model"
 )
 
-const (
-	QuoteOfTheDay = "qod"
-)
+type Client struct {
+	HttpClient *http.Client
+}
 
-func GetQuoteOfTheDay() (*model.QuoteSearchResult, error) {
-	url := config.ApiEndpoint + "/" + QuoteOfTheDay + config.JsonResult
-	resp, err := http.Get(url)
+// Construct the new Client
+// Return pointer to Client
+func NewClient() *Client {
+	cli := Client{
+		HttpClient: &http.Client{
+			Timeout: 5 * time.Second,
+		},
+	}
+
+	return &cli
+}
+
+// Get quote of the day
+// return *QUoteSearchResult, error
+func (cli *Client) GetQuoteOfTheDay() (*model.QuoteSearchResult, error) {
+	url := config.ApiEndpoint + "/" + config.QuoteOfTheDay + config.JsonResult
+	resp, err := cli.HttpClient.Get(url)
 	if err != nil {
 		return nil, err
 	}

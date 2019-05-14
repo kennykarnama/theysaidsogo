@@ -4,18 +4,16 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/kennykarnama/theysaidsogo/theysaidsogo"
+	"github.com/kennykarnama/theysaidsogo/theysaidsogo/client"
 )
 
 func main() {
-	quotes, err := theysaidsogo.GetQuoteOfTheDay()
-
+	saidClient := client.NewClient()
+	quotes, err := saidClient.GetQuoteOfTheDay()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("There are %d quotes\n", quotes.Status.Total)
 	for _, quote := range quotes.Contents.Quotes {
-		fmt.Printf("Quote: %s\n", quote.Quote)
+		fmt.Printf("Quote of the day: %s\n", quote.Quote)
 	}
 }
