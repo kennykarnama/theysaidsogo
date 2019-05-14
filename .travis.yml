@@ -8,6 +8,6 @@ go:
 before_install:
   - go get -v golang.org/x/lint/golint
   - go get -v github.com/stretchr/testify
-  - go get -v github.com/kennykarnama/theysaidsogo
+  - go get -u github.com/kennykarnama/theysaidsogo
 
 script: go test -v ./...
